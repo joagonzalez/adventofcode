@@ -1,10 +1,10 @@
 scores = {
     'rock': 1,
-    'scissor': 3,
     'paper': 2,
+    'scissor': 3,
     'win': 6,
     'draw': 3,
-    'lost': 0
+    'lose': 0
 }
 
 player1 = {
@@ -26,43 +26,64 @@ def open_file(filename):
 
 def game_logic(x, y):
     winner = None # 0 is draw
+    choice = None
     
     if 'rock' in player1[x] and 'scissor' in player2[y]:
         winner = 1
+        choice = 'scissor'
     if 'rock' in player1[x] and 'paper' in player2[y]:
         winner = 2
+        choice = 'paper'
     if 'rock' in player1[x] and 'rock' in player2[y]:
         winner = 0
+        choice = 'rock'
         
     if 'paper' in player1[x] and 'scissor' in player2[y]:
         winner = 2
+        choice = 'scissor'
     if 'paper' in player1[x] and 'paper' in player2[y]:
         winner = 0
+        choice = 'paper'
     if 'paper' in player1[x] and 'rock' in player2[y]:
         winner = 1
+        choice = 'rock'
         
     if 'scissor' in player1[x] and 'scissor' in player2[y]:
         winner = 0
+        choice = 'scissor'
     if 'scissor' in player1[x] and 'paper' in player2[y]:
         winner = 1
+        choice = 'paper'
     if 'scissor' in player1[x] and 'rock' in player2[y]:
         winner = 2
+        choice = 'rock'
     
-    return winner
+    return winner, choice
         
 def run_logic(data):
     points = 0
+    data = data.split('\n')
+    print(f'size: {len(data)}')
     
-    for game in data.split('\n'):
-        
+    for game in data:
+        print(f'Analyzing {game} data')
         if len(game) > 1:
-            result = game_logic(game.split(' ')[0], game.split(' ')[1])
+            result, choice = game_logic(game.split(' ')[0], game.split(' ')[1])
         
         if result == 2:
-            points += scores['win']
+            add = scores['win'] + scores[choice]
+            print(f'result is win for player 2 and choose {choice} and adds {add} points')
+            points += add
             
         if result == 0:
-            points += scores['draw']
+            add = scores['draw'] + scores[choice]
+            print(f'result is draw and player2 choose {choice} and adds {add} points')
+            points += add
+            
+        if result == 1:
+            add = scores['lose'] + scores[choice]
+            print(f'result is win for player1 and player2 choose {choice} and adds {add} points')
+            points += add
             
     return points
             
