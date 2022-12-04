@@ -4,9 +4,10 @@ intersections = []
 groups = {}
 
 def result():
-    for element in intersections:
-        print(element) 
-    return sum(intersections)
+    # for element in intersections:
+    #     print(element) 
+    result = sum(intersections)
+    return result
         
 def logic(data):
     for rucksuck in data:
@@ -52,6 +53,10 @@ if __name__ == '__main__':
     data = open_file(filename)
     
     # print(data)
-    # logic(data=data.split('\n'))
+    logic(data=data.split('\n'))
+    print(f'#### Part 1 ####')
+    print(result())
+    print(f'#### Part 2 ####')
+    intersections = []
     logic_part_two(data=data.split('\n'))
     print(result())
