@@ -4,7 +4,7 @@ from day2 import find_valid_games
 
 
 
-test_solution = [3, 4]
+test_solution = [1, 2, 5]
 test_data = load_file('data/day2_1_test')
 
 
