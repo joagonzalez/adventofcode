@@ -130,9 +130,6 @@ def valid_fewest_games(data: Dict) -> Dict:
 def find_valid_games(data: List) -> List: 
 
     data, valid_games = parse_games(data=data)
-    
-    # print(data)
-    
     cubes, sum_power = valid_fewest_games(data=data)
     
     print(f'Invalid: {valid_games}\n#: {len(valid_games)}\nsum: {sum(valid_games)}')
