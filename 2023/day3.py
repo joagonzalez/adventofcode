@@ -1,5 +1,5 @@
 """
-AdventofCode 2023 - Day 1 Challenge
+AdventofCode 2023 - Day 3 Challenge
 """
 import sys
 from common import load_file
