@@ -1,6 +1,7 @@
 """
 AdventofCode 2023 - Day 4 Challenge
 """
+from pprint import pprint
 from common import load_file
 from typing import List, Dict
 
@@ -37,7 +38,7 @@ def add_card_points(data: List[Dict[int, str]]) -> int:
     
     return result
             
-def calculate_winning_points(data: List[str]) -> int:
+def calculate_winning_points(data: List[str]) -> (int, List[Dict[int, str]]):
     parsed_data = parse_data(data=data)
     winner_counter = []
     
@@ -46,17 +47,32 @@ def calculate_winning_points(data: List[str]) -> int:
         for i in v['card_numbers']:
             if i in v['winner_numbers'] and i != '': 
                 counter += 1        
-        winner_counter.append({'card': k,'points': calculate_card_points(counter), 'counter': counter})
+        winner_counter.append({'card': k,'points': calculate_card_points(counter), 'counter': counter, 'qty': 1})
          
     result = add_card_points(winner_counter)
     print(f'\nWinnner counter: {winner_counter}\nTotal points: {result}')
     
-    return result
+    return result, winner_counter
+
+def count_scratchcards(data: List[Dict[int, str]]) -> int:
+    for index, card in enumerate(data):
+        for i in range(card['card']+1,card['card']+card['counter']+1):
+            data[i-1]['qty'] += 1*card['qty']
+
+    counter = 0
+    for i in data:
+        counter += i['qty']
+    return counter
 
 def logic() -> None:
     data = load_file('data/day4')
     show_data(data=data)
-    calculate_winning_points(data=data)
-
+    points, output = calculate_winning_points(data=data)
+    pprint(output)
+    counter = count_scratchcards(output)
+    print('----')
+    pprint(output)
+    print(f'# of cards: {counter}')
+    
 if __name__ == '__main__':
     logic()
